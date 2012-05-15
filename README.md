@@ -4,3 +4,23 @@ PDFFactory
 PHP Class for creating and joining files.
 
 Requires installation of wkhtmltopdf and Ghostscript
+
+Basic usage
+==========
+
+// Set configuration options in PDFFactory/config.php to your environment
+
+// include the PDFFactory class into your PHP script
+include('PDFFactory.php');
+
+// instantiate a new PDFFactory
+$pdf = new PDFFactory();
+
+// set the HTML document to be converted (can be a URL or a local file)
+$pdf->htmlDocumentToConvert = 'http://www.google.com';
+
+// set the filename for the PDF to be created
+$pdf->outputFilename = 'test.pdf';
+
+// create the PDF
+$pdf->createPDF();
