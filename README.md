@@ -10,17 +10,17 @@ Basic usage
 
 // Set configuration options in PDFFactory/config.php to your environment
 
-// include the PDFFactory class into your PHP script
+// include the PDFFactory class into your PHP script<br />
 include('PDFFactory.php');
 
-// instantiate a new PDFFactory
+// instantiate a new PDFFactory<br />
 $pdf = new PDFFactory();
 
-// set the HTML document to be converted (can be a URL or a local file)
+// set the HTML document to be converted (can be a URL or a local file)<br />
 $pdf->htmlDocumentToConvert = 'http://www.google.com';
 
-// set the filename for the PDF to be created
+// set the filename for the PDF to be created<br />
 $pdf->outputFilename = 'test.pdf';
 
-// create the PDF
+// create the PDF<br />
 $pdf->createPDF();
