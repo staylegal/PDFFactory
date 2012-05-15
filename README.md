@@ -1,14 +1,14 @@
 PDFFactory
 ==========
 
-PHP Class for creating and joining files.
+PHP class for creating and joining files.
 
 Requires installation of wkhtmltopdf and Ghostscript
 
 Basic usage
 ==========
 
-// Set configuration options in PDFFactory/config.php to your environment
+Set configuration options in PDFFactory/config.php to your environment configuration
 
 // include the PDFFactory class into your PHP script<br />
 include('PDFFactory.php');
