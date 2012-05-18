@@ -75,8 +75,8 @@ $pdf3->joinPDFs();
 
 $pdf3 = new PDFFactory();
 $pdf3->outputFilename = 'Joined PDFs.pdf';
-$pdf->htmlDocumentToConvert = 'http://www.google.com';
-$pdf->outputFilename = 'google.pdf';
+$pdf3->htmlDocumentToConvert = 'http://www.google.com';
+$pdf3->outputFilename = 'google.pdf';
 $pdf3->addPDF($pdf->createPDF());
 $pdf3->addPDF('/path/to/webserver/directory/output/Page 1.pdf');
 $pdf3->addPDF('/path/to/webserver/directory/output/Page 2.pdf');
