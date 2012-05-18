@@ -58,7 +58,6 @@ $pdf2->downloadPDF();
 * Add PDFs to be joined
 * Call the joinPDFs method
 */
-
 $pdf3 = new PDFFactory();
 $pdf3->outputFilename = 'Joined PDFs.pdf';
 $pdf3->addPDF('/path/to/webserver/directory/output/Page 1.pdf');
@@ -76,13 +75,14 @@ $pdf3->joinPDFs();
 */
 
 $pdf4 = new PDFFactory();
-$pdf4->outputFilename = 'Joined PDFs.pdf';
 $pdf4->htmlDocumentToConvert = 'http://www.google.com';
-$pdf4->outputFilename = 'google.pdf';
-$pdf4->addPDF($pdf->createPDF());
-$pdf4->addPDF('/path/to/webserver/directory/output/Page 1.pdf');
-$pdf4->addPDF('/path/to/webserver/directory/output/Page 2.pdf');
-$pdf4->addPDF('/path/to/webserver/directory/output/Page 3.pdf');
+$pdf4->generatedPDFOutputFilename = 'google.pdf';
+$pdf4->createPDF();
+$pdf4->joinedPDFOutputFilename= 'Joined PDFs.pdf';
+$pdf4->addPDF($pdf4->createdPDF);
+$pdf4->addPDF('path/to/webserver/directory/output/Page 2.pdf');
+$pdf4->addPDF('path/to/webserver/directory/output/Page 3.pdf');
 $pdf4->joinPDFs();
+$pdf4->downloadPDF();
 
 ?>

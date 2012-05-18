@@ -9,10 +9,22 @@ class PDFFactory {
 	public $htmlDocumentToConvert;
 	
 	 /**
-     * Filename of the output PDF.
+     * Filename of the wkhtmltopdf output PDF.
      * @var string
      */	
-	public $outputFilename;
+	public $generatedPDFOutputFilename;
+
+	 /**
+     * Filename of the output Ghostscript PDF.
+     * @var string
+     */	
+	public $joinedPDFOutputFilename;
+
+	 /**
+     * Path and filename of the created wkhtmltopdf file
+     * @var string
+     */	
+	public $createdPDF;
 
 	 /**
      * Configuration variables set in config.php
@@ -43,7 +55,7 @@ class PDFFactory {
      * @var array
      */		
 	private $wkhtmltopdfOptions = array();
-
+	
 	/**
 	 * Upon instansiation call the setConfiguration method so
 	 * configuration settings in the config file can be used within
@@ -147,8 +159,12 @@ class PDFFactory {
 		$this->wkhtmltopdfCommand = $this->config['wkhtmltopdf_executionable'] . ' ';
 		$this->wkhtmltopdfCommand .= implode('',$this->wkhtmltopdfOptions);
 		$this->wkhtmltopdfCommand .= '"' . $this->htmlDocumentToConvert . '" ';
-		$this->wkhtmltopdfCommand .= '"' . $this->config['pdf_output_directory'] . $this->outputFilename . '"';
+		$this->wkhtmltopdfCommand .= '"' . $this->config['pdf_output_directory'] . $this->generatedPDFOutputFilename . '"';
+		
 		exec($this->wkhtmltopdfCommand);
+		
+		$this->createdPDF = $this->config['pdf_output_directory'] . $this->generatedPDFOutputFilename;
+
 	}
 
 	/**
@@ -161,26 +177,37 @@ class PDFFactory {
 		
 		$this->ghostscriptCommand = $this->config['ghostscript_executionable'];
 		$this->ghostscriptCommand .= ' -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=';
-		$this->ghostscriptCommand .= '"' . $this->config['pdf_output_directory'] . $this->outputFilename. '" ';
+		$this->ghostscriptCommand .= '"' . $this->config['pdf_output_directory'] . $this->joinedPDFOutputFilename. '" ';
 		$this->ghostscriptCommand .= '-dBATCH ';
 		$this->ghostscriptCommand .= implode('',$this->pdfsToJoin);
 		
 		exec($this->ghostscriptCommand);
-		
+				
 	}
 
 	/**
 	 * Download the created PDF
 	 * Set headers and force a download of the new file
-	 * Can only be used if no output has been made to the browser before
-	 * running
+	 * If a joinedPDFOuputFilename is set then send the joined file to be downloaded
+	 * Can only be used if no output has been made to the browser before running
 	 */	
 	public function downloadPDF() {
 		
 		header('Content-type: application/pdf');
-		header('Content-disposition: attachment; filename="' . $this->outputFilename.'"');
-		readfile($this->config['pdf_output_directory'] . $this->outputFilename);	
+		
+		if ($this->joinedPDFOutputFilename != '') {
 
+			header('Content-disposition: attachment; filename="' . $this->joinedPDFOutputFilename.'"');
+			readfile($this->config['pdf_output_directory'] . $this->joinedPDFOutputFilename);	
+			
+		} else {
+
+			header('Content-disposition: attachment; filename="' . $this->generatedPDFOutputFilename.'"');
+			readfile($this->config['pdf_output_directory'] . $this->generatedPDFOutputFilename);
+
+		}
+		
+	
 	}
 	
 }
