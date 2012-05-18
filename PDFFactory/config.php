@@ -24,7 +24,7 @@ $config['ghostscript_directory'] = '/usr/bin';
  * Set the default output directory for generated PDFs
  * @var string
  */
-$config['pdf_output_directory'] = '/home/t/e/testpyramid/web/public_html/output/';
+$config['pdf_output_directory'] = '/path/to/webserver/directory/output/';
 
 /**
  * Set the wkhtmltopdf executionable name
