@@ -6,6 +6,8 @@
 
 /**
 * Include PDFFactory class
+*
+* Set configuration options in PDFFactory/config.php
 */
 require 'PDFFactory/PDFFactory.php';
 
